@@ -1,0 +1,58 @@
+﻿@model MovieProjectAssignment.Models.Customer
+
+<h3>Place order as a new customer</h3>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <b>Firstname: @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } }) </b>
+        </div>
+
+        <div class="form-group">
+                <b>Lastname: @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+                <b>Billing Address: @Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+            <b>Billing Zip:@Html.EditorFor(model => model.BillingZip, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+            <b>Billing City: @Html.EditorFor(model => model.BillingCity, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+            <b>Delivery Address: @Html.EditorFor(model => model.DeliveryAddress, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+            <b>Delivery Zip: @Html.EditorFor(model => model.DeliveryZip, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+            <b>Delivery City: @Html.EditorFor(model => model.DeliveryCity, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+            <b>Email Address: @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+            <b>Phone No: @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control" } })</b>
+        </div>
+
+        <div class="form-group">
+
+            <input type="submit" value="Submit" class="btn btn-default" />
+
+        </div>
+    </div>
+}
+

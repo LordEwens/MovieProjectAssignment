@@ -1,0 +1,28 @@
+﻿@model MovieProjectAssignment.Models.Customer
+
+@{
+    ViewBag.Title = "Place Order";
+}
+
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Please enter your email-address:</h3>
+    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+
+    <br /><input type="submit" value="Submit" class="btn btn-default" />
+}
+
+@*<h3>If you are not an existing customer, please fill out the following form.</h3>*@
+
+@if (Model.Firstname != null)
+{
+    <p>@Model.Firstname</p>
+    <p>@Model.Lastname</p>
+    <p>@Model.DeliveryAddress</p>
+    <p>@Model.EmailAddress</p>
+}
+

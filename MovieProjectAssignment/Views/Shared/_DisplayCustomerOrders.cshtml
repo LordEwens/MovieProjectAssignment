@@ -1,0 +1,24 @@
+﻿@model  MovieProjectAssignment.Models.ViewModels.ViewOrdersVM
+
+    @{ decimal totalPrice = 0; }
+
+    <table class="table">
+
+        <tr>
+            <th>Movie</th>
+            <th>Price</th>
+        </tr>
+
+        @foreach (var item in Model.ListOfMoviesAndPrice)
+        {
+            <tr>
+                <td>@item.MovieName</td>
+                <td>@item.Price</td>
+            </tr>
+
+            totalPrice += item.Price;
+        }
+
+    </table>
+
+    <p>Total price: @totalPrice  Order Id: @Model.OrderNumber Order Date: @Model.OrderDate</p>

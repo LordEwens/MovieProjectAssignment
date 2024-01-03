@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MovieProjectAssignment.Models.Customer>
+
+<h4>Please select Customer to view orders.</h4>
+
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @Html.ActionLink(item.EmailAddress, "Details/" + item.Id.ToString())
+        </td>
+    </tr>
+}
+
+</table>

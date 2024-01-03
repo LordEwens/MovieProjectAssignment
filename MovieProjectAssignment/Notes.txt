@@ -1,0 +1,80 @@
+﻿2020-11-23
+ If you get a csc error, run this in PM:
+ Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
+ 
+ 2020-11-18
+select MovieId, Count(*) as Count from OrderRows group by MovieId
+select OrderId, SUM(Price) as Amount from OrderRows group by OrderId  
+
+int MostExpOrderId = db.OrderRows.GroupBy(x => x.OrderId).Select(x => new { TPrice = x.Sum(b => b.Price), OId = x.Key }).OrderByDescending(q => q.TPrice).Select(x =>  x.OId ).FirstOrDefault();
+decimal TotalPrice = db.OrderRows.GroupBy(x => x.OrderId).Select(x => new { TPrice = x.Sum(b => b.Price), OId = x.Key }).OrderByDescending(q => q.TPrice).Select(x => x.TPrice).FirstOrDefault();
+
+
+2020-11-16 14:12
+
+			Worked on a query to get MovieName, Price, OrderId from CustomerId. So all orders with all orderrows is displayed for a user.
+
+            // var MovieList = db.Movies.Join(db.OrderRows, m => m.Id, r => r.MovieId, (m, r) => new { m, r }) // Compare m.Id with r MovideId. Return result table m,r 
+            //.Join(db.Orders, mr => mr.r.OrderId, o => o.Id, (mr, o) => new { mr, o })
+            //.Select(mro => new MovieOrderListVM { CustomerName = mro.o.Customer.Firstname, MovieTitle = mro.mr.m.Title, OrderDate = mro.o.OrderDate, Price = mro.mr.r.Price }).ToList();
+
+            // select Movies.Title, OrderRows.Price, Orders.Id from OrderRows
+            // left join Orders on OrderId = Orders.Id
+            // left join Movies on MovieId = Movies.Id
+
+            //var TitlePriceOrdId = db.OrderRows.Join(db.Orders, m => m.OrderId, r => r.Id, (m, r) => new { m, r })
+            //        .Join(db.Movies, mr => mr.m.MovieId, o => o.Id, (mr, o) => new { mr, o })
+            //        .Select(mro => new MovieNameAndPrice { MovieName = mro.o.Title, Price = mro.mr.m.Price, OrderId = mro.mr.m.OrderId }).ToList();
+
+2020-11-12 13:43
+
+It's now possible to complete orders both as an existing customer or as a new customer. The PlaceOrderNewCustomer view is scaffolded, so it has to be remade.
+When creating orders everything looks fine in all tables. When an order is completed, the view PlaceOrderSuccess is shown, all it says is 'thank you for your order'.
+
+2020-11-12:
+The current goal is to complete the checkout of the order. It seems that some people have the shoppingcart page and the checkout page all in one and use ajax.
+My current plan is to divide the problem, have one link or button for placeing the order as an existing customer. And one as a new customer.
+So the shoppingcart folder should look something like,
+ViewCart.cshtml, PlaceOrderExisting.cshtml, PlaceOrderNew.cshtml, PlaceOrderSuccess.cshtml
+
+Also, ActionLinks to buttons in ListMovies and other places.
+
+Mixed code and data:
+
+<div class="col-sm-4">
+<button id="Btn" onclick="location.href='@Url.Action("AddtoCart", "Movies")?MovieId=' + @Model.Id" >Add to Cart</button>
+</div>
+
+
+public ActionResult CheckoutOrders(string aCheckoutAddress)
+{
+//string mail = Request["checkoutAddress"];
+var customerList = db.Customers.ToList();
+var checkoutCustomer = customerList.FirstOrDefault(c => c.EmailAddress == aCheckoutAddress);
+if(checkoutCustomer == null)
+{
+//TempData["msg"] = "The customer email address wasn't registrated";
+//ModelState.AddModelError("Address", "The customer email address wasn't registrated");
+return RedirectToAction("Create", "Customers");
+}
+return RedirectToAction("Index");
+}
+
+$(function () {
+$('#Btn').click(function () {
+$('#ListDiv').show()
+$.ajax({
+url: "/Movies/MovieDetailsList",
+contentType: 'application/html; charset=utf-8',
+type: 'GET',
+dataType: 'html'
+})
+.done(function (result) {
+$('#ListDiv').html(result);
+});
+});
+});
+
+.done(function (result) {
+$('#ListDiv').html(result);
+});

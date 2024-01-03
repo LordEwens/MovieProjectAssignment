@@ -1,0 +1,16 @@
+﻿@model IEnumerable<MovieProjectAssignment.Models.ViewModels.ViewOrdersVM>
+
+@*This view is not realy needed, but there is a requirement for partial views.*@
+
+<br />
+
+@foreach (var OrderVM in Model)
+{
+    <div class="btn btn-default">
+        @Html.Partial("_DisplayCustomerOrders", OrderVM)
+    </div>
+    <br /><br />
+}
+
+<br />
+<div class="btn btn-default"><p>Total number of orders: @Model.Count()</p></div>

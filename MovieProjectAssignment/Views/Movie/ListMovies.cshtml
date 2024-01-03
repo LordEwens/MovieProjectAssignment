@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MovieProjectAssignment.Models.Movie>
+
+<br /><br />
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4">
+
+        <div class="btn btn-default" style="margin: 5px;">
+
+            @Html.Partial("_DisplayMovie", item)
+
+            @*@Html.ActionLink("Buy", "ListMoviesAddToCart/" + item.Id.ToString(), "Movie")*@
+            <button id="Btn" onclick="location.href='@Url.Action("ListMoviesAddToCart/", "Movie")' + @item.Id">Add to Cart</button>
+
+        </div>
+
+    </div>
+}
+
+<br />

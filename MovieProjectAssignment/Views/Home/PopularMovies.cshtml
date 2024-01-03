@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MovieProjectAssignment.Models.Movie>
+
+
+@{var Count = 1; }
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4">
+
+        <div class="btn btn-default" style="margin: 5px;">
+            Popularity Rank: @Count
+            @{Count=Count+1;}
+            @Html.Partial("_DisplayMovie", item)
+
+        </div>
+
+    </div>
+}
+
+<br />

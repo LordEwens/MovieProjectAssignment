@@ -1,0 +1,27 @@
+﻿
+<br /><br />
+<p>Welcome to the Movie-site. Here you can buy movies and more!</p>
+<br /><hr /><br />
+
+<h4>Most popular movies:</h4>
+@Html.Action("PopularMovies")
+
+<br /><hr /><br />
+<h4>Newest movies by release year:</h4>
+@Html.Action("NewestMovies")
+
+<br /><hr /><br />
+<h4>Oldest movies by release year:</h4>
+@Html.Action("OldestMovies")
+
+<br /><hr /><br />
+<h4>Cheapest movies:</h4>
+@Html.Action("CheapestMovies")
+
+<br /><hr /><br />
+<h4>The customer that has placed the most expensive order:</h4>
+@Html.Action("CustomerMostExpensiveOrder")
+
+@*@Html.ActionLink("Movie Order List", "MovieOrderList", "Movie")<br />
+    <p>Model View-version of Movie-list, (with data from other tables) - Lecture 2020-11-06</p><br />*@
+

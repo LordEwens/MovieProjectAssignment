@@ -1,0 +1,75 @@
+﻿@model IEnumerable<MovieProjectAssignment.Models.Movie>
+
+@{ decimal totalPrice = 0; }
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Title</p>
+        </th>
+        <th>
+            <p>Director</p>
+        </th>
+        <th>
+            <p>Release Year</p>
+        </th>
+        <th>
+            <p>Price</p>
+        </th>
+        <th>
+            <p>Add Item</p>
+        </th>
+        <th>
+            <p>Count</p>
+        </th>
+        <th>
+            <p>Remove Item</p>
+        </th>
+    </tr>
+
+    @{
+        // Select Unique entries in shopping cart
+        var unique = Model.GroupBy(test => test.Id)
+                           .Select(name => name.First()).ToList();
+
+    }
+
+    @foreach (var item in unique)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Director)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        @*<td>@Html.ActionLink("+", "AddItem/" + item.Id.ToString(), "ShoppingCart")</td>*@
+        <td><button id="BtnPlus" onclick="location.href='@Url.Action("AddItem/", "ShoppingCart")' + @item.Id">+</button></td>
+        <td>@Model.Where(x => x.Id == item.Id).Count()</td>
+        <td><button id="BtnMinus" onclick="location.href='@Url.Action("RemoveItem/", "ShoppingCart")' + @item.Id">-</button></td>
+        @*<td>@Html.ActionLink("-", "RemoveItem/" + item.Id.ToString(), "ShoppingCart")</td>*@
+    </tr>
+        totalPrice += (item.Price * Model.Where(x => x.Id == item.Id).Count());
+    }
+
+</table>
+
+<p>Total Price: @totalPrice</p>
+
+
+<button id="BtnCheckout" onclick="location.href='@Url.Action("PlaceOrderExistingCustomer/", "ShoppingCart")'">Checkout</button>
+<button id="BtnEmptyCart" onclick="location.href='@Url.Action("EmptyCart/", "ShoppingCart")'">Empty Cart</button>
+
+@*<div id="POrderExisting">
+    @Html.ActionLink("Place order, existing Customer.", "PlaceOrderExistingCustomer", "ShoppingCart")
+</div>*@
+
+@*<div id="POrderNew">
+    @Html.ActionLink("Place order, new Customer.", "PlaceOrderNewCustomer", "ShoppingCart")
+</div>*@

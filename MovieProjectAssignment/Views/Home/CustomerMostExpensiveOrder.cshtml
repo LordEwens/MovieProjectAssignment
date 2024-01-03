@@ -1,0 +1,32 @@
+﻿@model MovieProjectAssignment.Models.ViewModels.MostExpensiveOrderVM
+
+<div class="btn btn-default">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpCustomer.Firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpCustomer.Firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpCustomer.Lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpCustomer.Lastname)
+        </dd>
+
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>Order Id</dt>
+        <dd>@Model.ExpOrder.Id</dd>
+        <dt>Order Date</dt>
+        <dd>@Model.ExpOrder.OrderDate</dd>
+        <dt>Total Price</dt>
+        <dd>@Model.TotalPrice</dd>
+    </dl>
+</div>
+
+
